@@ -1,0 +1,7 @@
+[user]
+	email = scott.degraw@physics.ox.ac.uk
+	name = Scott DeGraw
+[core]
+	autocrlf = input
+[init]
+	defaultBranch = main

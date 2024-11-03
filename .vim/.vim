@@ -1,0 +1,1 @@
+/home/scott/dotfiles_test/.dotfiles/./.vim
