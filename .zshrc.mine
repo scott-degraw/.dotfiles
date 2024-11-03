@@ -88,13 +88,7 @@ fi
 set -o vi
 
 export PATH="$PATH:/home/scott/.local/bin"
-alias vim="vimx"
-alias fname="readlink -f"
-alias rasp="ssh scott@raspberrypi -p 2304"
-alias duckpi="ssh scott@scottrasp.duckdns.org -p 2304"
 
-alias mathematica="/usr/local/Wolfram/Mathematica/13.3/Executables/mathematica"
 
 alias clip="xclip -selection clipboard"
 alias paste="xclip -o"
-alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"

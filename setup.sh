@@ -20,8 +20,7 @@ fi
 
 # Prepend to zshrc to put global .zshrc.mine file in .zshrc
 if [ ! -f "$zshrc_path" ]; then
-	echo ".zshrc file not found" 1>&2
-	return 1
+	touch $zshrc_path
 fi
 
 if [ ! "$(head -n1 $zshrc_path)" = $mine_zsh_comment ]; then
