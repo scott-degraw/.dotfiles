@@ -1,6 +1,6 @@
 #!/bin/bash
 
-setup_directory=..
+setup_directory=$HOME
 
 add_mine_zshrc="source $(pwd)/.zshrc.mine" 
 mine_zsh_comment='# Sources global zshrc file'
@@ -33,11 +33,11 @@ if [ ! -f "$zshrc_path" ]; then
 	touch $zshrc_path
 fi
 
-if [ ! "$(head -n1 $zshrc_path)" = $mine_zsh_comment ]; then
+if [ "$(head -n1 $zshrc_path)" != "$mine_zsh_comment" ]; then
 	echo "$mine_zsh_comment\n$add_mine_zshrc" | cat - $zshrc_path > .tmp
 	mv .tmp $zshrc_path
 fi
 
 # Create the symbolic links
-find . -maxdepth 1 -type f,d ! -regex '\.\|\./\(.*\.\(swp\|mine\)\|setup\.sh\|\.git\|\.gitignore\)' -exec ln -sf $(realpath {}) $setup_directory/$(basename {}) \;
-
+find . -maxdepth 1 -type f,d ! -regex '\.\|\./\(.*\.\(swp\|mine\)\|setup\.sh\|\.git\|\.gitignore\|\.gitmodules\)' \
+	-exec bash -c "ln -sfT $(realpath {}) $setup_directory/$(basename {})" \;
