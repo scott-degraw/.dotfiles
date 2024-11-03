@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 setup_directory=..
 
@@ -10,6 +10,7 @@ zshrc_path=$setup_directory/.zshrc
 if [ ! "$(basename $SHELL)" = "zsh" ]; then
 	echo "zsh not set to default shell" 1>&2
 	return 1
+fi
 
 # Install oh-my-zsh if not installed
 if [ ! -f $HOME/.oh-my-zsh ]; then
@@ -28,6 +29,5 @@ if [ ! "$(head -n1 $zshrc_path)" = $mine_zsh_comment ]; then
 fi
 
 # Create the symbolic links
-find . -maxdepth 1 -type f,d !  \
-	-regex '\.\|\./\(.*\.\(swp\|mine\)\|setup\.sh\)' \
-	-exec ln -sf $(realpath {}) $setup_directory/$(basename {}) \;
+find . -maxdepth 1 -type f,d ! -regex '\.\|\./\(.*\.\(swp\|mine\)\|setup\.sh\)' -exec ln -sf $(realpath {}) $setup_directory/$(basename {}) \;
+
