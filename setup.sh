@@ -14,8 +14,18 @@ fi
 
 # Install oh-my-zsh if not installed
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
-	echo "here"
 	git clone https://github.com/ohmyzsh/ohmyzsh.git $HOME/.oh-my-zsh
+	source $zshrc_path
+fi
+
+zsh_custom_dir=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
+
+if [ ! -d $zsh_custom_dir/plugins/zsh-autosuggestions ]; then
+	git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+fi 
+
+if [ ! -d $zsh_custom_dir/plugins/zsh-syntax-highlighting ]; then
+	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 fi
 
 # Prepend to zshrc to put global .zshrc.mine file in .zshrc

@@ -1,0 +1,12 @@
+[submodule ".vim/pack/themes/start/gruvbox"]
+	path = .vim/pack/themes/start/gruvbox
+	url = https://github.com/morhetz/gruvbox.git
+[submodule ".vim/pack/plugins/start/nerdcommenter"]
+	path = .vim/pack/plugins/start/nerdcommenter
+	url = https://github.com/preservim/nerdcommenter.git
+[submodule ".vim/pack/plugins/start/nerdtree"]
+	path = .vim/pack/plugins/start/nerdtree
+	url = https://github.com/preservim/nerdtree.git
+[submodule ".vim/pack/plugins/start/vim-airline"]
+	path = .vim/pack/plugins/start/vim-airline
+	url = https://github.com/vim-airline/vim-airline.git
