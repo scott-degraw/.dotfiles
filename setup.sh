@@ -41,3 +41,7 @@ fi
 # Create the symbolic links
 find . -maxdepth 1 -type f,d ! -regex '\.\|\./\(.*\.\(swp\|mine\)\|setup\.sh\|\.git\|\.gitignore\|\.gitmodules\)' \
 	-exec bash -c "ln -sfT $(realpath {}) $setup_directory/$(basename {})" \;
+
+# Update the vim plugins
+git submodule init
+git submodule update
