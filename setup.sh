@@ -13,12 +13,13 @@ if [ ! "$(basename $SHELL)" = "zsh" ]; then
 fi
 
 # Install oh-my-zsh if not installed
-if [ ! -f $HOME/.oh-my-zsh ]; then
-	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+	echo "here"
+	git clone https://github.com/ohmyzsh/ohmyzsh.git $HOME/.oh-my-zsh
 fi
 
 # Prepend to zshrc to put global .zshrc.mine file in .zshrc
-if [ ! -f $zshrc_path ]; then
+if [ ! -f "$zshrc_path" ]; then
 	echo ".zshrc file not found" 1>&2
 	return 1
 fi
@@ -29,5 +30,5 @@ if [ ! "$(head -n1 $zshrc_path)" = $mine_zsh_comment ]; then
 fi
 
 # Create the symbolic links
-find . -maxdepth 1 -type f,d ! -regex '\.\|\./\(.*\.\(swp\|mine\)\|setup\.sh\)' -exec ln -sf $(realpath {}) $setup_directory/$(basename {}) \;
+find . -maxdepth 1 -type f,d ! -regex '\.\|\./\(.*\.\(swp\|mine\)\|setup\.sh\|\.git\|\.gitignore\)' -exec ln -sf $(realpath {}) $setup_directory/$(basename {}) \;
 
