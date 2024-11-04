@@ -45,3 +45,6 @@ find . -maxdepth 1 -type f,d ! -regex '\.\|\./\(.*\.\(swp\|mine\)\|setup\.sh\|\.
 # Update the vim plugins
 git submodule init
 git submodule update
+
+# Add alacritty terminfo 
+tic -x alacritty.terminfo 
