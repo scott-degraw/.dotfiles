@@ -87,8 +87,6 @@ fi
 ################ My stuff #####################
 set -o vi
 
-export PATH="$PATH:/home/scott/.local/bin"
-
 alias la="ls -lAh"
 alias clip="xclip -selection clipboard"
 alias paste="xclip -o"
