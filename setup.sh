@@ -9,7 +9,7 @@ zshrc_path=$setup_directory/.zshrc
 
 if [ ! "$(basename $SHELL)" = "zsh" ]; then
 	echo "zsh not set to default shell" 1>&2
-	return 1
+	exit 1
 fi
 
 # Install oh-my-zsh if not installed
