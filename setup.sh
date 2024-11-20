@@ -40,8 +40,12 @@ if [ "$(head -n1 $zshrc_path)" != "$mine_zsh_comment" ]; then
 fi
 
 # Create the symbolic links
-find . -maxdepth 1 ! -regex '\.\|\./\(.*\.\(swp\|mine\)\|setup\.sh\|\.git\|\.gitignore\|\.gitmodules\|alacritty\.terminfo\)' \
+find . -maxdepth 1 -type f,d ! -regex '\.\|\./\(.*\.\(swp\|mine\)\|setup\.sh\|\.git\|\.gitignore\|\.gitmodules\|alacritty\.terminfo\|\.tmux\.conf\)' \
 	-exec bash -c "ln -sfT $(realpath {}) $setup_directory/$(basename {})" \;
+
+# Copy tmux with correct shell 
+zsh_path=$(which zsh | sed 's/\//\\\//g') # Have to properly escape the /
+sed 's/<SHELL>/'$zsh_path'/g' .tmux.conf > $setup_directory/.tmux.conf
 
 # Update the vim plugins
 git submodule init
