@@ -18,8 +18,20 @@ if [ ! -d "$HOME/.oh-my-zsh" ]; then
 	source $zshrc_path
 fi
 
+# Get the pure theme installed
+theme_dir=$HOME/.zsh
+if [ ! -d $theme_dir ]; then
+	mkdir -p $theme_dir
+	git clone https://github.com/sindresorhus/pure.git $theme_dir/pure
+fi
+
+if [ ! -d  ]; then
+	git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+fi 
+
 zsh_custom_dir=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
 
+# All the zsh extensions
 if [ ! -d $zsh_custom_dir/plugins/zsh-autosuggestions ]; then
 	git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 fi 
