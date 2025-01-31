@@ -84,7 +84,8 @@ else
 fi
 
 ################ My stuff #####################
-set -o vi
+bindkey -v 
+export KEYTIMEOUT=1
 
 alias la="ls -lAh"
 alias clip="xclip -selection clipboard"
