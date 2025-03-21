@@ -51,7 +51,7 @@ if [ "$(head -n1 $zshrc_path)" != "$mine_zsh_comment" ]; then
 fi
 
 # Create the symbolic links
-find . -maxdepth 1 ! -regex '\.\|\./\(.*\.\(swp\|mine\)\|setup\.sh\|\.git\|\.gitignore\|\.gitmodules\|alacritty\.terminfo\|\.tmux\.conf\)' \
+find . -maxdepth 1 ! -regex '\.\|\./\(.*\.\(swp\|mine\)\|setup\.sh\|\.git\|\.gitignore\|\.gitmodules\|alacritty\.terminfo\|\.tmux\.conf\|README\.md\)' \
 	-exec bash -c "ln -sfT $(realpath {}) $setup_directory/$(basename {})" \;
 
 # Copy tmux with correct shell 
