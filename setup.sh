@@ -58,6 +58,10 @@ find . -maxdepth 1 ! -regex '\.\|\./\(.*\.\(swp\|mine\)\|setup\.sh\|\.git\|\.git
 zsh_path=$(which zsh | sed 's/\//\\\//g') # Have to properly escape the /
 sed 's/<SHELL>/'$zsh_path'/g' .tmux.conf > $setup_directory/.tmux.conf
 
+# Copy matplotlibrc file
+mkdir -p $setup_directory/.config/matplotlib/
+ln -sfT $(realpath matplotlibrc) $setup_directory/.config/matplotlib/matplotlibrc
+
 # Update the vim plugins
 git submodule init
 git submodule update
