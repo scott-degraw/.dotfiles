@@ -46,9 +46,11 @@ if [ "$(head -n1 $zshrc_path)" != "$mine_zsh_comment" ]; then
 	mv .tmp $zshrc_path
 fi
 
-# Create the symbolic links
-find . -maxdepth 1 ! -regex '\.\|\./\(.*\.\(swp\|mine\)\|setup\.sh\|\.git\|\.gitignore\|\.gitmodules\|alacritty\.terminfo\|\.tmux\.conf\|README\.md\)' \
-	-exec bash -c "ln -sfT $(realpath {}) $setup_directory/$(basename {})" \;
+dotfiles=(.vim .vimrc .gitconfig)
+
+for dotfile in "${dotfiles[@]}"; do
+   ln -sF $(realpath "$dotfile") $setup_directory/"$dotfile"
+done
 
 # Copy tmux with correct shell 
 zsh_path=$(which zsh)
@@ -57,7 +59,7 @@ sed 's#<SHELL>#'"$zsh_path"'#g' .tmux.conf > $setup_directory/.tmux.conf
 
 # Copy matplotlibrc file
 mkdir -p $setup_directory/.config/matplotlib/
-ln -sfT $(realpath matplotlibrc) $setup_directory/.config/matplotlib/matplotlibrc
+ln -sF $(realpath matplotlibrc) $setup_directory/.config/matplotlib/matplotlibrc
 
 # Update the vim plugins
 git submodule init
