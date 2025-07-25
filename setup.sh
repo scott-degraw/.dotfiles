@@ -25,19 +25,15 @@ if [ ! -d $theme_dir ]; then
 	git clone https://github.com/sindresorhus/pure.git $theme_dir/pure
 fi
 
-if [ ! -d  ]; then
-	git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-fi 
-
 zsh_custom_dir=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
 
 # All the zsh extensions
 if [ ! -d $zsh_custom_dir/plugins/zsh-autosuggestions ]; then
-	git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+	git clone https://github.com/zsh-users/zsh-autosuggestions "${zsh_custom_dir}"/plugins/zsh-autosuggestions
 fi 
 
 if [ ! -d $zsh_custom_dir/plugins/zsh-syntax-highlighting ]; then
-	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${zsh_custom_dir}"/plugins/zsh-syntax-highlighting
 fi
 
 # Prepend to zshrc to put global .zshrc.mine file in .zshrc
