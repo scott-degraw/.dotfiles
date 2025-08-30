@@ -90,6 +90,6 @@ export KEYTIMEOUT=1
 alias la="ls -lAh"
 
 function yank() {
-	head -c-1 | tee >(tmux loadb -) >(base64 -w 0 | xargs printf '\033]52;c;%s\007')
+	tee >(tmux loadb -) >(base64 -w 0 | xargs printf '\033]52;c;%s\007')
 }
 
