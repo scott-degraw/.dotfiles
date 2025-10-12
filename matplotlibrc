@@ -1,8 +1,6 @@
-legend.fancybox : false
-legend.frameon : false
-
-font.family : sans-serif
-font.size : 12
+font.family: serif
+font.serif: cmr10
+font.size: 12
 axes.titlesize : 20
 axes.labelsize : 22
 xtick.labelsize : 22
@@ -11,25 +9,59 @@ legend.fontsize : 15
 xaxis.labellocation : right
 yaxis.labellocation : top
 
-xtick.major.size : 6
-xtick.major.width : 1.6
-xtick.minor.size : 3
-xtick.minor.width : 1.6
-ytick.major.size : 6
-ytick.major.width : 1.6
-ytick.minor.size : 3
-ytick.minor.width : 1.6
-axes.linewidth : 1.6
-figure.facecolor : white
-figure.figsize : 8.5, 6.5
-xtick.major.pad : 6
-ytick.major.pad : 6
-axes.titlepad : 12
-xtick.direction : in
-ytick.direction : in
+# Define which fonts to use when doing maths processing
+mathtext.fontset: cm
 
-xtick.top : true
-xtick.bottom : true
-ytick.left : true
-ytick.right : true
+# Set position of axis labels
 
+xaxis.labellocation: right
+yaxis.labellocation: top
+
+# Set height & widths of major & minor axis ticks
+xtick.major.size: 6
+xtick.major.width: 1.6
+xtick.minor.size: 3
+xtick.minor.width: 1.6
+ytick.major.size: 6
+ytick.major.width: 1.6
+ytick.minor.size: 3
+ytick.minor.width: 1.6
+
+# Set axis line thickness
+axes.linewidth: 1.6
+
+# Set plot background color
+figure.facecolor: white
+
+# Set default plot aspect ratio
+figure.figsize: 8.5, 6.5
+
+# Set padding between ticks & axis label
+xtick.major.pad: 6
+ytick.major.pad: 6
+
+# Set padding between plot & title
+axes.titlepad: 12
+
+# Set markings on axis to show on the inside of the plot
+xtick.direction: in
+ytick.direction: in
+
+# Set ticks to be on both sides of x and y axes
+xtick.top: True
+xtick.bottom: True
+ytick.left: True
+ytick.right: True
+
+# Turn legend frame off
+legend.frameon: False
+
+# Set default number of points in legend to 1
+legend.numpoints: 1
+
+# Set default capsize of errorbars
+errorbar.capsize: 1.5
+
+# Get the minus signs right
+axes.formatter.use_mathtext: True
+axes.unicode_minus: False
