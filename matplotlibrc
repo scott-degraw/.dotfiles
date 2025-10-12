@@ -5,7 +5,7 @@ axes.titlesize : 20
 axes.labelsize : 22
 xtick.labelsize : 22
 ytick.labelsize : 22
-legend.fontsize : 15
+legend.fontsize : 20
 xaxis.labellocation : right
 yaxis.labellocation : top
 
@@ -65,3 +65,6 @@ errorbar.capsize: 1.5
 # Get the minus signs right
 axes.formatter.use_mathtext: True
 axes.unicode_minus: False
+
+# savefig settings
+savefig.bbox: True
