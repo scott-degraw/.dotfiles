@@ -35,6 +35,10 @@ nnoremap <C-N> :NERDTree<CR>
 " Open terminal in current window without adding to buffer list
 nnoremap <leader>t :term ++curwin<CR><C-W>:setlocal nobuflisted<CR>
 
+nmap <leader>d <Plug>OSCYankOperator
+nmap <leader>dd <leader>d_
+vmap <leader>d <Plug>OSCYankVisual
+
 let g:vimtex_fold_manual = 1
 
 " if !exists('g:ycm_semantic_triggers')

@@ -10,3 +10,9 @@
 [submodule ".vim/pack/plugins/start/vim-airline"]
 	path = .vim/pack/plugins/start/vim-airline
 	url = https://github.com/vim-airline/vim-airline.git
+[submodule "vim-oscyank"]
+	path = vim-oscyank
+	url = https://github.com/ojroques/vim-oscyank.git
+[submodule ".vim/pack/plugins/start/vim-oscyank"]
+	path = .vim/pack/plugins/start/vim-oscyank
+	url = https://github.com/ojroques/vim-oscyank.git
