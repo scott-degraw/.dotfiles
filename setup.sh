@@ -2,6 +2,8 @@
 
 setup_directory=$HOME
 
+# Set up fish
+fish fish_setup.fish
 
 dotfiles=(.vim .vimrc .gitconfig)
 
