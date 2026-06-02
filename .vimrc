@@ -16,7 +16,8 @@ set clipboard=unnamed
 set wildmenu
 set wildmode=full
 filetype plugin indent on
-syntax on set viminfo='1000,f1,\"500,:100,/100
+syntax on
+set viminfo='1000,f1,\"500,:100,/100
 
 "set foldmethod=manual
 

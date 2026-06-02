@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cd "$(dirname "$0")"
 setup_directory=$HOME
 
 # Set up fish
