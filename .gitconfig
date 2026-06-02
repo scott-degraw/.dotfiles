@@ -5,3 +5,10 @@
 	autocrlf = input
 [init]
 	defaultBranch = main
+[push]
+	default = simple
+[pull]
+	rebase = false
+[alias]
+	lg = log --oneline --graph --decorate --all
+	st = status -sb

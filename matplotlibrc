@@ -71,3 +71,4 @@ axes.unicode_minus: True
 
 # savefig settings
 savefig.bbox: tight
+savefig.dpi: 300
