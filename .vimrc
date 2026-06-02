@@ -9,7 +9,7 @@ set shiftwidth=4
 set autoindent
 set ignorecase
 set smartcase
-set clipboard=unnamedplus
+set clipboard=unnamed
 
 
 " Set autocomplete for command mode
