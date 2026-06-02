@@ -3,21 +3,29 @@
 cd "$(dirname "$0")"
 setup_directory=$HOME
 
-# Set up fish
-fish fish_setup.fish
-
-fish -c 'curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher'
-fish <<'EOF'
-	fisher install edc/bass
-EOF
-
-dotfiles=(.vim .vimrc .gitconfig)
-
 function rmsymlink() {
 	if [ -L "$1" ]; then
 		rm "$1"
 	fi
 }
+
+# Set up fish universal variables (vi bindings, clear greeting)
+fish fish_setup.fish
+
+# Install fisher and plugins from fish_plugins list
+fish -c 'curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher && fisher install < fish/fish_plugins'
+
+# Symlink fish functions
+fish_config_dir=$HOME/.config/fish
+mkdir -p "$fish_config_dir/functions"
+
+for fish_file in fish/functions/*.fish; do
+	symlink="$fish_config_dir/functions/$(basename "$fish_file")"
+	rmsymlink "$symlink"
+	ln -s "$(realpath "$fish_file")" "$symlink"
+done
+
+dotfiles=(.vim .vimrc .gitconfig)
 
 for dotfile in "${dotfiles[@]}"; do
 	symlink=$setup_directory/"$dotfile"
