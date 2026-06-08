@@ -3,7 +3,6 @@
 set mouse=a
 set ttymouse=sgr
 set number
-autocmd FileType html,xml,xsl source ~/.vim/scripts/closetag.vim
 set tabstop=4
 set shiftwidth=4
 set autoindent
