@@ -1,0 +1,51 @@
+# Shared bash config from .dotfiles, sourced from ~/.bashrc. Machine-specific
+# settings (PATH tweaks, env vars, etc.) belong directly in ~/.bashrc, not here.
+
+# Everything below only matters for interactive shells. Scripts that merely
+# source this file (condor job wrappers, etc.) should return here untouched.
+case $- in
+    *i*) ;;
+    *) return ;;
+esac
+
+set -o vi
+
+# Cut the default ~500ms wait after Esc (readline holds off in case more
+# bytes of an escape sequence are coming) so vi mode's Esc feels instant.
+bind 'set keyseq-timeout 1'
+
+# Case-insensitive tab completion (ble.sh defers to this readline setting too)
+bind 'set completion-ignore-case on'
+
+# ble.sh must be sourced before anything else touches readline/bind
+if [[ -r "$HOME/.local/share/blesh/ble.sh" ]]; then
+    source "$HOME/.local/share/blesh/ble.sh" --noattach
+    # Treat a standalone Esc as C-[ immediately instead of waiting to see if
+    # it's the start of an escape sequence (ble.sh's own equivalent of the
+    # keyseq-timeout fix above, once it's attached and readline is bypassed).
+    bleopt decode_isolated_esc=esc
+    bleopt color_scheme=catppuccin_mocha
+fi
+
+[[ -d "$HOME/.fzf/bin" ]] && PATH="$HOME/.fzf/bin:$PATH"
+[[ -r "$HOME/.fzf/shell/key-bindings.bash" ]] && source "$HOME/.fzf/shell/key-bindings.bash"
+[[ -r "$HOME/.fzf/shell/completion.bash" ]] && source "$HOME/.fzf/shell/completion.bash"
+
+# fzf uses fd for file listing when available: faster, respects .gitignore
+if command -v fd >/dev/null 2>&1; then
+    export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git'
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+fi
+
+command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init bash)"
+command -v starship >/dev/null 2>&1 && eval "$(starship init bash)"
+
+command -v eza >/dev/null 2>&1 && alias ls='eza'
+
+dotfiles_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+for fn in "$dotfiles_dir"/functions/*.sh; do
+    [ -r "$fn" ] && source "$fn"
+done
+unset fn dotfiles_dir
+
+[[ ${BLE_VERSION-} ]] && ble-attach

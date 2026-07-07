@@ -1,5 +1,7 @@
 ".vimrc - startup file for Vim
 
+let mapleader = " "
+
 set mouse=a
 set ttymouse=sgr
 set number
@@ -43,8 +45,6 @@ command Saveasroot w !sudo tee %
 set foldmethod=indent
 set foldlevel=99
 
-" Enable folding with the spacebar
-nnoremap <space> za
 
 " Insert blank line below; fall back to normal <CR> in special buffers
 nnoremap <expr> <CR> &buftype ==# '' ? 'o\<esc>k' : '\<CR>'
@@ -52,6 +52,7 @@ nnoremap <expr> <CR> &buftype ==# '' ? 'o\<esc>k' : '\<CR>'
 " enables airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
+let g:airline_theme = 'catppuccin_mocha'
 
 " This allows buffers to be hidden if you've modified a buffer.
 set hidden
@@ -68,8 +69,7 @@ nnoremap <C-h> :bprevious<CR>
 " Close the current buffer and move to the previous one
 nnoremap <C-q> :bp <BAR> bd #<CR>
 
-" enables gruvbox theme
+" enables catppuccin mocha theme, to match the ble.sh/starship/tmux theme
 set background=dark
-let g:gruvbox_guisp_fallback = 'bg'
-let g:gruvbox_italic=1
-colorscheme gruvbox
+set termguicolors
+colorscheme catppuccin_mocha
