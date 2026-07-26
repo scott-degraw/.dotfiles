@@ -151,7 +151,7 @@ tic -x alacritty.terminfo
 
 # Make bash the default login shell. chsh isn't always usable on HPC/NIS
 # systems, so fall back to printing manual instructions instead of failing.
-if ! chsh -s "$shell_path" 2>/dev/null; then
+if ! chsh -s "$shell_path" </dev/null 2>/dev/null; then
     echo "Could not change login shell automatically."
     echo "Run 'chsh -s $shell_path' (or 'ypchsh -s $shell_path' on NIS systems) manually, or ask your sysadmin."
 fi
