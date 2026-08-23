@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repo is
 
-A personal dotfiles repo that sets up a bash environment (with fish-like enhancements) on HPC/Slurm clusters — no root or compiler required. The primary shell is bash; fish configs are kept but no longer the default.
+A personal dotfiles repo that sets up a bash environment on HPC/Slurm clusters — no root or compiler required.
 
 ## Setup
 
@@ -48,12 +48,9 @@ Plugins managed as git submodules under `.vim/pack/` (vim8 native package loadin
 - `py.sh`: prints the realpath of a file, piped through nyank (clipboard copy)
 - `memwatch.sh`: polls RSS of a process tree at a configurable interval (useful for Slurm jobs)
 
-### fish/
-Fish shell configs and functions are kept for reference/optional use but are not installed by default on machines where fish isn't present. The `fish_setup.fish` script sets fish universal variables (vi bindings, greeting).
-
 ## Key constraints
 
 - All tool installs in `setup.sh` are no-sudo, no-compiler. Use static/musl binaries from GitHub releases for new tools on x86\_64; add a non-x86\_64 fallback message for other architectures.
 - `~/.bashrc` is never overwritten — only appended to via `ensure_block()` so per-machine customizations survive re-runs.
 - `.tmux.conf` is **not** symlinked; it is copied via `envsubst` because it contains shell variables that must be resolved at install time.
-- Adding a new bash function: drop a `.sh` file in `bash/functions/` — it is sourced automatically. Mirror in `fish/functions/` if fish support is desired.
+- Adding a new bash function: drop a `.sh` file in `bash/functions/` — it is sourced automatically.

@@ -17,28 +17,6 @@ function rmsymlink() {
 git submodule init
 git submodule update --recursive
 
-# --- fish (optional, no longer the default shell) ---
-if command -v fish &>/dev/null; then
-    # Set up fish universal variables (vi bindings, clear greeting)
-    fish fish_setup.fish
-
-    # Install fisher, then plugins (fisher itself is excluded from fish_plugins to avoid double-install)
-    fish -c 'curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher'
-    fish -c "fisher install < $(pwd)/fish/fish_plugins"
-
-    # Symlink fish functions
-    fish_config_dir=$HOME/.config/fish
-    mkdir -p "$fish_config_dir/functions"
-
-    for fish_file in fish/functions/*.fish; do
-        symlink="$fish_config_dir/functions/$(basename "$fish_file")"
-        rmsymlink "$symlink"
-        ln -s "$(realpath "$fish_file")" "$symlink"
-    done
-else
-    echo "fish not found in PATH, skipping fish setup."
-fi
-
 # Appends $2 to file $1 once, wrapped in a marker so re-running is a no-op.
 # Leaves everything else in the file (machine-specific customization) alone.
 function ensure_block() {
@@ -71,7 +49,7 @@ if [ ! -d "$setup_directory/.fzf" ]; then
 fi
 "$setup_directory/.fzf/install" --bin --no-update-rc --no-completion --no-key-bindings
 
-# zoxide: fish-like smart cd/z (prebuilt static binary, no cargo build)
+# zoxide: smart cd/z (prebuilt static binary, no cargo build)
 if ! command -v zoxide &>/dev/null && [ ! -x "$setup_directory/.local/bin/zoxide" ]; then
     curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash -s -- --bin-dir "$setup_directory/.local/bin"
 fi
