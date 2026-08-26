@@ -27,6 +27,7 @@ if [[ -r "$HOME/.local/share/blesh/ble.sh" ]]; then
     bleopt color_scheme=catppuccin_mocha
 fi
 
+[[ -d "$HOME/.local/bin" ]] && PATH="$HOME/.local/bin:$PATH"
 [[ -d "$HOME/.fzf/bin" ]] && PATH="$HOME/.fzf/bin:$PATH"
 [[ -r "$HOME/.fzf/shell/key-bindings.bash" ]] && source "$HOME/.fzf/shell/key-bindings.bash"
 [[ -r "$HOME/.fzf/shell/completion.bash" ]] && source "$HOME/.fzf/shell/completion.bash"

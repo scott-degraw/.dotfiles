@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/bin/sh
 
 cd "$(dirname "$0")"
 setup_directory=$HOME
 
 # Removes a symlink, or warns and exits if a regular file exists at that path
-function rmsymlink() {
+rmsymlink() {
     if [ -L "$1" ]; then
         rm "$1"
     elif [ -e "$1" ]; then
@@ -19,8 +19,8 @@ git submodule update --recursive
 
 # Appends $2 to file $1 once, wrapped in a marker so re-running is a no-op.
 # Leaves everything else in the file (machine-specific customization) alone.
-function ensure_block() {
-    local file=$1 body=$2 marker="# >>> dotfiles bash config >>>"
+ensure_block() {
+    file=$1 body=$2 marker="# >>> dotfiles bash config >>>"
     touch "$file"
     if ! grep -qF "$marker" "$file"; then
         {
@@ -50,12 +50,12 @@ fi
 "$setup_directory/.fzf/install" --bin --no-update-rc --no-completion --no-key-bindings
 
 # zoxide: smart cd/z (prebuilt static binary, no cargo build)
-if ! command -v zoxide &>/dev/null && [ ! -x "$setup_directory/.local/bin/zoxide" ]; then
+if ! command -v zoxide >/dev/null 2>&1 && [ ! -x "$setup_directory/.local/bin/zoxide" ]; then
     curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash -s -- --bin-dir "$setup_directory/.local/bin"
 fi
 
 # starship: cross-shell prompt (prebuilt static binary, no compiler needed)
-if ! command -v starship &>/dev/null && [ ! -x "$setup_directory/.local/bin/starship" ]; then
+if ! command -v starship >/dev/null 2>&1 && [ ! -x "$setup_directory/.local/bin/starship" ]; then
     curl -sS https://starship.rs/install.sh | sh -s -- --bin-dir "$setup_directory/.local/bin" --yes
 fi
 
@@ -64,12 +64,11 @@ fi
 # with mismatched glibc versions. Defaults to a musl build; pass "gnu" as $3
 # for tools that need glibc's NSS (e.g. eza resolving usernames via NIS/LDAP,
 # which musl's static NSS can't do).
-function install_gh_release_bin() {
-    local repo=$1 binname=$2 libc=${3:-musl}
-    command -v "$binname" &>/dev/null && return
+install_gh_release_bin() {
+    repo=$1 binname=$2 libc=${3:-musl}
+    command -v "$binname" >/dev/null 2>&1 && return
     [ -x "$setup_directory/.local/bin/$binname" ] && return
 
-    local tmp url
     tmp=$(mktemp -d)
     url=$(curl -sS "https://api.github.com/repos/$repo/releases/latest" \
         | grep -oE "\"browser_download_url\": *\"[^\"]*x86_64-unknown-linux-$libc\.tar\.gz\"" \
@@ -82,7 +81,6 @@ function install_gh_release_bin() {
 
     curl -sSL "$url" -o "$tmp/asset.tar.gz"
     tar -xzf "$tmp/asset.tar.gz" -C "$tmp"
-    local found
     found=$(find "$tmp" -type f -name "$binname" | head -1)
     if [ -z "$found" ]; then
         echo "Could not find binary '$binname' after extracting $repo release, skipping."
@@ -95,7 +93,7 @@ function install_gh_release_bin() {
     rm -rf "$tmp"
 }
 
-if [[ $(uname -m) == x86_64 ]]; then
+if [ "$(uname -m)" = "x86_64" ]; then
     install_gh_release_bin BurntSushi/ripgrep rg
     install_gh_release_bin sharkdp/fd fd
     install_gh_release_bin sharkdp/bat bat
@@ -104,19 +102,22 @@ else
     echo "Non-x86_64 architecture detected, skipping rg/fd/bat/eza (only musl x86_64 releases are wired up)."
 fi
 
-dotfiles=(.vim .vimrc .gitconfig)
-
-for dotfile in "${dotfiles[@]}"; do
+for dotfile in .vim .vimrc .gitconfig; do
     symlink="$setup_directory/$dotfile"
     rmsymlink "$symlink"
     ln -s "$(realpath "$dotfile")" "$symlink"
 done
 
 # Copy tmux with correct shell path and repo location baked in
-shell_path=$(which bash)
+shell_path=$(command -v bash)
 dotfiles_dir=$(pwd)
 export shell_path dotfiles_dir
-envsubst < .tmux.conf > "$setup_directory/.tmux.conf"
+if command -v envsubst >/dev/null 2>&1; then
+    envsubst < .tmux.conf > "$setup_directory/.tmux.conf"
+else
+    echo "Could not find envsubst (part of gettext), skipping tmux config install."
+    echo "Install gettext and re-run setup.sh, or manually substitute \$shell_path/\$dotfiles_dir in .tmux.conf and copy it to $setup_directory/.tmux.conf"
+fi
 
 # Symlink matplotlibrc
 mkdir -p "$setup_directory/.config/matplotlib/"
