@@ -1,7 +1,7 @@
 # Only render modules that don't list the current directory. Language
 # modules (python, nodejs, rust, ...) scan cwd for marker files, which times
 # out on slow cluster filesystems (NFS/Lustre) and spams "scan timed out".
-format = "$username$hostname$directory$git_branch$conda$cmd_duration$jobs$character"
+format = "$username$hostname$directory$git_branch$conda$cmd_duration$jobs$line_break$character"
 
 [git_status]
 disabled = true
