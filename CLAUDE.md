@@ -23,6 +23,7 @@ bash setup.sh
 - Symlinks `.vim`, `.vimrc`, `.gitconfig` into `$HOME`
 - Processes `.tmux.conf` through `envsubst` (bakes in `$shell_path` and `$dotfiles_dir`) and writes to `~/.tmux.conf`
 - Symlinks `matplotlibrc` into `~/.config/matplotlib/`
+- Symlinks `starship.toml` into `~/.config/`
 - Registers the alacritty terminfo entry
 
 After running, verify all tools are on PATH with the check printed at the end of setup.

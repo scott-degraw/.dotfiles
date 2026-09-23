@@ -125,6 +125,12 @@ symlink="$setup_directory/.config/matplotlib/matplotlibrc"
 rmsymlink "$symlink"
 ln -s "$(realpath matplotlibrc)" "$symlink"
 
+# Symlink starship.toml
+mkdir -p "$setup_directory/.config"
+symlink="$setup_directory/.config/starship.toml"
+rmsymlink "$symlink"
+ln -s "$(realpath starship.toml)" "$symlink"
+
 # Add alacritty terminfo
 tic -x alacritty.terminfo
 
