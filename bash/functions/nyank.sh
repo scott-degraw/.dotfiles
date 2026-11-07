@@ -1,3 +1,3 @@
 nyank() {
-    head -c-1 | yank
+    printf '%s' "$(cat)" | yank
 }
