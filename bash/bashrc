@@ -43,6 +43,10 @@ command -v starship >/dev/null 2>&1 && eval "$(starship init bash)"
 
 command -v eza >/dev/null 2>&1 && alias ls='eza'
 
+alias ll="ls -l"
+alias la="ls -a"
+alias l="ls -al"
+
 dotfiles_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 for fn in "$dotfiles_dir"/functions/*.sh; do
     [ -r "$fn" ] && source "$fn"
