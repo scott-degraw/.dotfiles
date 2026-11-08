@@ -36,7 +36,10 @@ ensure_block() {
 # Append (don't overwrite) so per-machine customization in ~/.bashrc survives
 # re-running setup.sh or re-cloning on a different machine.
 ensure_block "$setup_directory/.bashrc" "[ -r \"$(realpath bash/bashrc)\" ] && source \"$(realpath bash/bashrc)\""
-ensure_block "$setup_directory/.bash_profile" "[ -f \"$setup_directory/.bashrc\" ] && . \"$setup_directory/.bashrc\""
+# Distro-default profiles often source .bashrc already; a second source doubles login shell startup time.
+if ! grep -sqE '^[^#]*(\.|source)[[:space:]]+.*\.bashrc' "$setup_directory/.bash_profile"; then
+    ensure_block "$setup_directory/.bash_profile" "[ -f \"$setup_directory/.bashrc\" ] && . \"$setup_directory/.bashrc\""
+fi
 
 # ble.sh: autosuggestions/syntax-highlighting for bash (pure make/awk, no compiler needed)
 if [ ! -x "$setup_directory/.local/share/blesh/ble.sh" ]; then
