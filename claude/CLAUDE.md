@@ -8,7 +8,7 @@ I work on scientific computing and machine learning for the SNO+ particle physic
 
 ## Python Stack
 
-- **Python 3.13**, managed with `uv` 
+- **Python 3.13**, managed with `uv`
 - **Linting/formatting**: `ruff check` and `ruff format` — run before committing
 - **Line length**: 120 characters
 - **Pre-commit hooks**:  ruff, typos, trailing whitespace, YAML/TOML checks
@@ -49,6 +49,6 @@ ruff check . && ruff format .
 ## Plotting
 
 - Use latex commands when working with matplotlib
- 
+
 
 @~/.claude/CLAUDE.local.md

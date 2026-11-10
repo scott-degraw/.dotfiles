@@ -1,6 +1,6 @@
 font.family: serif
 #font.serif: Times New Roman
-font.serif: cmr10 # For computer modern 
+font.serif: cmr10 # For computer modern
 font.size: 20
 axes.titlesize : 20
 axes.labelsize : 22
