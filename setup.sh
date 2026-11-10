@@ -160,8 +160,11 @@ done
 settings="$setup_directory/.claude/settings.json"
 if command -v jq >/dev/null 2>&1; then
     [ -s "$settings" ] || echo '{}' >"$settings"
-    jq --indent 2 -s '.[0] * .[1]' "$settings" claude/settings.json >"$settings.tmp"
-    cat "$settings.tmp" >"$settings"
+    if jq --indent 2 -s '.[0] * .[1]' "$settings" claude/settings.json >"$settings.tmp"; then
+        cat "$settings.tmp" >"$settings"
+    else
+        echo "Could not merge claude/settings.json into $settings (is it valid JSON?), left it unchanged."
+    fi
     rm "$settings.tmp"
 else
     echo "Could not find jq, skipping Claude Code settings merge."
