@@ -20,7 +20,8 @@ bash setup.sh
 - Builds ble.sh from source (`bash/vendor/ble.sh`) into `~/.local/share/blesh/`
 - Installs fzf, zoxide, starship as prebuilt binaries into `~/.local/bin` or `~/.fzf/`
 - Installs rg, fd, bat, eza from GitHub release tarballs (x86\_64 musl static builds — no glibc dependency)
-- Symlinks `.vim`, `.vimrc`, `.gitconfig` into `$HOME`
+- Symlinks `.vim`, `.vimrc` into `$HOME`
+- Prepends an `[include]` of the repo `.gitconfig` to `~/.gitconfig` (replacing an old symlink if present)
 - Processes `.tmux.conf` through `envsubst` (bakes in `$shell_path` and `$dotfiles_dir`) and writes to `~/.tmux.conf`
 - Symlinks `matplotlibrc` into `~/.config/matplotlib/`
 - Symlinks `starship.toml` into `~/.config/`

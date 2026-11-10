@@ -102,11 +102,23 @@ else
     echo "Non-x86_64 architecture detected, skipping rg/fd/bat/eza (only musl x86_64 releases are wired up)."
 fi
 
-for dotfile in .vim .vimrc .gitconfig; do
+for dotfile in .vim .vimrc; do
     symlink="$setup_directory/$dotfile"
     rmsymlink "$symlink"
     ln -s "$(realpath "$dotfile")" "$symlink"
 done
+
+# Include the repo gitconfig at the top of ~/.gitconfig rather than symlinking it,
+# so tools that write to ~/.gitconfig (git config --global, gh, etc.) don't modify
+# the repo, and machine-specific settings below the include override the shared ones.
+gitconfig="$setup_directory/.gitconfig"
+gitconfig_include=$(realpath .gitconfig)
+[ -L "$gitconfig" ] && rm "$gitconfig"
+touch "$gitconfig"
+if ! grep -qF "path = $gitconfig_include" "$gitconfig"; then
+    printf '[include]\n\tpath = %s\n' "$gitconfig_include" | cat - "$gitconfig" >"$gitconfig.tmp"
+    mv "$gitconfig.tmp" "$gitconfig"
+fi
 
 # Copy tmux with correct shell path and repo location baked in
 shell_path=$(command -v bash)
