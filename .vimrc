@@ -19,9 +19,6 @@ filetype plugin indent on
 syntax on
 set viminfo='1000,f1,\"500,:100,/100
 
-" execute python script
-nnoremap <F5> :w<CR> :! python %<CR>
-
 " spell check
 autocmd BufRead,BufNewFile *.tex setlocal spell
 
