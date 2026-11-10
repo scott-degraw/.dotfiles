@@ -47,7 +47,7 @@ set foldlevel=99
 
 
 " Insert blank line below; fall back to normal <CR> in special buffers
-nnoremap <expr> <CR> &buftype ==# '' ? 'o\<esc>k' : '\<CR>'
+nnoremap <expr> <CR> &buftype ==# '' ? "o\<Esc>k" : "\<CR>"
 
 " enables airline
 let g:airline#extensions#tabline#enabled = 1
