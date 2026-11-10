@@ -12,6 +12,10 @@ memwatch() {
         return 1
     fi
 
+    if ! pstree -pT "$pid" >/dev/null 2>&1; then
+        echo "Warning: 'pstree -pT' failed (missing, or psmisc older than 22.21), so only PID $pid itself is counted, not its children"
+    fi
+
     echo "Monitoring PID $pid (interval: ${interval}s) — Ctrl+C to stop"
     printf "%-10s %-14s %s\n" "Time" "RSS (MB)" "PIDs"
 
