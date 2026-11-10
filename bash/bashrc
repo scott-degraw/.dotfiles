@@ -22,11 +22,15 @@ bind 'set completion-ignore-case on'
 # settings above
 if [[ -r "$HOME/.local/share/blesh/ble.sh" ]]; then
     source "$HOME/.local/share/blesh/ble.sh" --noattach
-    # Treat a standalone Esc as C-[ immediately instead of waiting to see if
-    # it's the start of an escape sequence (ble.sh's own equivalent of the
-    # keyseq-timeout fix above, once it's attached and readline is bypassed).
-    bleopt decode_isolated_esc=esc
-    bleopt color_scheme=catppuccin_mocha
+    # ble.sh declines to load without a terminal (e.g. `bash -ic` over ssh), so
+    # bleopt only exists if it actually loaded
+    if [[ ${BLE_VERSION-} ]]; then
+        # Treat a standalone Esc as C-[ immediately instead of waiting to see if
+        # it's the start of an escape sequence (ble.sh's own equivalent of the
+        # keyseq-timeout fix above, once it's attached and readline is bypassed).
+        bleopt decode_isolated_esc=esc
+        bleopt color_scheme=catppuccin_mocha
+    fi
 fi
 
 # Only prepend if missing, so nested shells and tmux panes don't keep growing PATH
