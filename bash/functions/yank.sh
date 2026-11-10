@@ -3,6 +3,6 @@ yank() {
     tmp=$(mktemp)
     cat >"$tmp"
     cat "$tmp"
-    base64 <"$tmp" | tr -d '\n' | xargs printf '\033]52;c;%s\007'
+    printf '\033]52;c;%s\007' "$(base64 <"$tmp" | tr -d '\n')"
     rm "$tmp"
 }
