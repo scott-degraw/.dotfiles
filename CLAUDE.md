@@ -35,12 +35,12 @@ After running, verify all tools are on PATH with the check printed at the end of
 ### bash/bashrc
 The main interactive shell config sourced from `~/.bashrc`. It:
 1. Guards against non-interactive shells (returns early for scripts/job wrappers)
-2. Sources `ble.sh` first (must precede any `bind` calls) with catppuccin-mocha color scheme
+2. Sets vi mode and readline options, then sources `ble.sh` with `--noattach` and catppuccin-mocha color scheme (attached by `ble-attach` at the end of the file)
 3. Wires up fzf key bindings and completion
 4. Initializes zoxide (`z` command) and starship prompt
 5. Sources all `bash/functions/*.sh` files
 
-### tmux/.tmux.conf
+### .tmux.conf
 Template processed by `envsubst` at install time — uses `$shell_path` and `$dotfiles_dir` literals that get replaced. Prefix is `C-a`. Plugins (catppuccin, tmux-fzf) are loaded via `run` directives pointing into `tmux/vendor/`.
 
 ### vim
