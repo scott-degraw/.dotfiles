@@ -19,7 +19,8 @@ memwatch() {
 
     while kill -0 "$pid" 2>/dev/null; do
         local all_pids
-        all_pids=$(pstree -p "$pid" | grep -oP '\(\K[0-9]+')
+        # -T hides threads: they share their process's RSS, so counting them inflates the total
+        all_pids=$(pstree -pT "$pid" | grep -oP '\(\K[0-9]+')
 
         if [ -z "$all_pids" ]; then
             all_pids=$pid
