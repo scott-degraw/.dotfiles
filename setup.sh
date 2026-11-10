@@ -146,6 +146,30 @@ symlink="$setup_directory/.config/starship.toml"
 rmsymlink "$symlink"
 ln -s "$(realpath starship.toml)" "$symlink"
 
+# Symlink Claude Code user config. Only hand-written files: the rest of ~/.claude
+# is per-machine state, transcripts and credentials.
+mkdir -p "$setup_directory/.claude"
+for file in CLAUDE.md keybindings.json; do
+    symlink="$setup_directory/.claude/$file"
+    rmsymlink "$symlink"
+    ln -s "$(realpath "claude/$file")" "$symlink"
+done
+# settings.json has no include mechanism, so merge the shared keys into the machine's
+# own file: shared keys are overwritten, machine-specific keys and permissions Claude
+# Code adds are kept. Written in place to keep the file's permissions.
+settings="$setup_directory/.claude/settings.json"
+if command -v jq >/dev/null 2>&1; then
+    [ -s "$settings" ] || echo '{}' >"$settings"
+    jq --indent 2 -s '.[0] * .[1]' "$settings" claude/settings.json >"$settings.tmp"
+    cat "$settings.tmp" >"$settings"
+    rm "$settings.tmp"
+else
+    echo "Could not find jq, skipping Claude Code settings merge."
+    echo "Install jq and re-run setup.sh, or manually copy the keys in claude/settings.json into $settings"
+fi
+# Machine-specific instructions, imported by claude/CLAUDE.md and never committed
+touch "$setup_directory/.claude/CLAUDE.local.md"
+
 # Add alacritty terminfo
 tic -x alacritty.terminfo
 

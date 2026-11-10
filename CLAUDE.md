@@ -25,6 +25,7 @@ bash setup.sh
 - Processes `.tmux.conf` through `envsubst` (bakes in `$shell_path` and `$dotfiles_dir`) and writes to `~/.tmux.conf`
 - Symlinks `matplotlibrc` into `~/.config/matplotlib/`
 - Symlinks `starship.toml` into `~/.config/`
+- Symlinks `claude/{CLAUDE.md,keybindings.json}` into `~/.claude/` (Claude Code user config), merges the shared keys in `claude/settings.json` into `~/.claude/settings.json` with `jq` (machine-specific keys are kept), and creates an empty `~/.claude/CLAUDE.local.md` for machine-specific instructions (imported by the shared `CLAUDE.md`, never committed)
 - Registers the alacritty terminfo entry
 
 After running, verify all tools are on PATH with the check printed at the end of setup.
