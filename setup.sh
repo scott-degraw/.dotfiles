@@ -19,17 +19,29 @@ rmsymlink() {
 git submodule init
 git submodule update --recursive
 
-# Appends $2 to file $1 once, wrapped in a marker so re-running is a no-op.
-# Leaves everything else in the file (machine-specific customization) alone.
+# Appends $2 to file $1 once, wrapped in markers so re-running is a no-op.
+# If a block with different contents exists (e.g. the repo moved and the path in
+# it is stale), it is replaced. Leaves everything else in the file
+# (machine-specific customization) alone.
 ensure_block() {
-    file=$1 body=$2 marker="# >>> dotfiles bash config >>>"
+    file=$1 body=$2 marker="# >>> dotfiles bash config >>>" end_marker="# <<< dotfiles bash config <<<"
     touch "$file"
-    if ! grep -qF "$marker" "$file"; then
+    grep -qxF "$body" "$file" && return
+    if grep -qxF "$marker" "$file"; then
+        # Swap the body in place, so lines after the block still run after it.
+        # Written back with cat to keep the file's permissions.
+        BODY=$body awk -v m="$marker" -v e="$end_marker" '
+            $0 == m { print; print ENVIRON["BODY"]; skip = 1; next }
+            $0 == e { skip = 0 }
+            !skip' "$file" >"$file.tmp"
+        cat "$file.tmp" >"$file"
+        rm "$file.tmp"
+    else
         {
             echo ""
             echo "$marker"
             echo "$body"
-            echo "# <<< dotfiles bash config <<<"
+            echo "$end_marker"
         } >>"$file"
     fi
 }
