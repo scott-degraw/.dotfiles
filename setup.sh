@@ -105,7 +105,7 @@ else
     echo "Non-x86_64 architecture detected, skipping rg/fd/bat/eza (only musl x86_64 releases are wired up)."
 fi
 
-for dotfile in .vim .vimrc; do
+for dotfile in .vim .vimrc .inputrc; do
     symlink="$setup_directory/$dotfile"
     rmsymlink "$symlink"
     ln -s "$(realpath "$dotfile")" "$symlink"
