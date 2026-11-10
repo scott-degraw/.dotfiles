@@ -130,7 +130,8 @@ shell_path=$(command -v bash)
 dotfiles_dir=$(pwd)
 export shell_path dotfiles_dir
 if command -v envsubst >/dev/null 2>&1; then
-    envsubst < .tmux.conf > "$setup_directory/.tmux.conf"
+    # Only substitute our two variables, so any other $VAR in .tmux.conf is left for tmux
+    envsubst '$shell_path $dotfiles_dir' < .tmux.conf > "$setup_directory/.tmux.conf"
 else
     echo "Could not find envsubst (part of gettext), skipping tmux config install."
     echo "Install gettext and re-run setup.sh, or manually substitute \$shell_path/\$dotfiles_dir in .tmux.conf and copy it to $setup_directory/.tmux.conf"
