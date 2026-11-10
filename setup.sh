@@ -3,13 +3,15 @@
 cd "$(dirname "$0")"
 setup_directory=$HOME
 
-# Removes a symlink, or warns and exits if a regular file exists at that path
+# Removes a symlink, or moves a real file/directory at that path aside to a
+# timestamped backup (instead of exiting, which would leave setup half-done)
 rmsymlink() {
     if [ -L "$1" ]; then
         rm "$1"
     elif [ -e "$1" ]; then
-        echo "Error: $1 already exists and is not a symlink. Remove it manually first."
-        exit 1
+        backup="$1.bak.$(date +%Y%m%d%H%M%S)"
+        mv "$1" "$backup"
+        echo "Moved existing $1 to $backup"
     fi
 }
 
