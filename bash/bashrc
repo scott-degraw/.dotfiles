@@ -21,6 +21,13 @@ bind 'set completion-ignore-case on'
 # in bash it just clutters the starship prompt (ble.sh honours it too)
 bind 'set show-mode-in-prompt off'
 
+# Append rather than overwrite on exit so concurrent shells (tmux panes) don't
+# clobber each other's history, and keep far more than the default 500 lines
+shopt -s histappend
+HISTSIZE=100000
+HISTFILESIZE=100000
+HISTCONTROL=ignoreboth:erasedups
+
 # ble.sh is loaded here with --noattach and only takes over the line editor at
 # the ble-attach at the end of this file, picking up the vi mode and readline
 # settings above
