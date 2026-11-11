@@ -17,6 +17,10 @@ bind 'set keyseq-timeout 1'
 # Case-insensitive tab completion (ble.sh defers to this readline setting too)
 bind 'set completion-ignore-case on'
 
+# ~/.inputrc turns on the (ins)/(cmd) mode indicator for python, gdb etc., but
+# in bash it just clutters the starship prompt (ble.sh honours it too)
+bind 'set show-mode-in-prompt off'
+
 # ble.sh is loaded here with --noattach and only takes over the line editor at
 # the ble-attach at the end of this file, picking up the vi mode and readline
 # settings above
