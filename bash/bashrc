@@ -41,6 +41,8 @@ if [[ -r "$HOME/.local/share/blesh/ble.sh" ]]; then
         # keyseq-timeout fix above, once it's attached and readline is bypassed).
         bleopt decode_isolated_esc=esc
         bleopt color_scheme=catppuccin_mocha
+        # Pick up commands run in other open shells (e.g. tmux panes) at each prompt
+        bleopt history_share=1
     fi
 fi
 
