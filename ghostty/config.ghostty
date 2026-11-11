@@ -18,3 +18,8 @@ confirm-close-surface = false
 window-padding-x = 8
 window-padding-y = 6
 window-padding-balance = true
+
+# Drop-down quick terminal from anywhere (global needs Accessibility permission);
+# it slides away again when it loses focus
+keybind = global:cmd+grave_accent=toggle_quick_terminal
+quick-terminal-position = top
