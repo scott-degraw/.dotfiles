@@ -161,6 +161,15 @@ symlink="$setup_directory/.config/starship.toml"
 rmsymlink "$symlink"
 ln -s "$(realpath starship.toml)" "$symlink"
 
+# Symlink the Ghostty config (macOS only: on clusters Ghostty is only ever the
+# terminal at the other end of ssh)
+if [ "$(uname)" = Darwin ]; then
+    mkdir -p "$setup_directory/.config/ghostty"
+    symlink="$setup_directory/.config/ghostty/config.ghostty"
+    rmsymlink "$symlink"
+    ln -s "$(realpath ghostty/config.ghostty)" "$symlink"
+fi
+
 # Symlink Claude Code user config. Only hand-written files: the rest of ~/.claude
 # is per-machine state, transcripts and credentials.
 mkdir -p "$setup_directory/.claude"
@@ -188,8 +197,10 @@ fi
 # Machine-specific instructions, imported by claude/CLAUDE.md and never committed
 touch "$setup_directory/.claude/CLAUDE.local.md"
 
-# Add alacritty terminfo
+# Add alacritty and ghostty terminfo, so hosts reached over ssh from either
+# terminal understand its TERM
 tic -x alacritty.terminfo
+tic -x ghostty.terminfo
 
 # Make bash the default login shell. chsh isn't always usable on HPC/NIS
 # systems, so fall back to printing manual instructions instead of failing.

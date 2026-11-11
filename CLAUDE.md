@@ -26,7 +26,8 @@ bash setup.sh
 - Symlinks `matplotlibrc` into `~/.config/matplotlib/`
 - Symlinks `starship.toml` into `~/.config/`
 - Symlinks `claude/{CLAUDE.md,keybindings.json}` into `~/.claude/` (Claude Code user config), merges the shared keys in `claude/settings.json` into `~/.claude/settings.json` with `jq` (machine-specific keys are kept), and creates an empty `~/.claude/CLAUDE.local.md` for machine-specific instructions (imported by the shared `CLAUDE.md`, never committed)
-- Registers the alacritty terminfo entry
+- On macOS, symlinks `ghostty/config.ghostty` into `~/.config/ghostty/`
+- Registers the alacritty and ghostty terminfo entries
 
 After running, verify all tools are on PATH with the check printed at the end of setup.
 
@@ -49,6 +50,7 @@ Plugins managed as git submodules under `.vim/pack/` (vim8 native package loadin
 ### bash/functions/
 - `yank.sh` / `nyank.sh`: OSC 52 clipboard helpers (copy to system clipboard over SSH/tmux)
 - `py.sh`: prints the realpath of a file, piped through nyank (clipboard copy)
+- `reload.sh`: re-runs `setup.sh`, re-sources `~/.bashrc` and, inside tmux, reloads `~/.tmux.conf`
 - `memwatch.sh`: polls RSS of a process tree at a configurable interval (useful for Slurm jobs)
 
 ## Key constraints

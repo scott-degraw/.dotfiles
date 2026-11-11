@@ -1,0 +1,20 @@
+# Matches the catppuccin mocha theme used by tmux, ble.sh and starship
+theme = Catppuccin Mocha
+
+# Leave the cursor shape to the shell: Ghostty's default switches to a bar at
+# the prompt, which hides which vi mode ble.sh is in
+shell-integration-features = no-cursor
+
+# Left Option sends Alt (readline M-b/M-f/M-., tmux); right Option still types
+# special characters like # (Option+3 on a UK keyboard)
+macos-option-as-alt = left
+
+mouse-hide-while-typing = true
+
+# Work lives in tmux on the remote side, so closing a window only drops the ssh
+# connection and nothing is lost
+confirm-close-surface = false
+
+window-padding-x = 8
+window-padding-y = 6
+window-padding-balance = true
