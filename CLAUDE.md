@@ -50,7 +50,7 @@ Plugins managed as git submodules under `.vim/pack/` (vim8 native package loadin
 ### bash/functions/
 - `yank.sh` / `nyank.sh`: OSC 52 clipboard helpers (copy to system clipboard over SSH/tmux)
 - `py.sh`: prints the realpath of a file, piped through nyank (clipboard copy)
-- `reload.sh`: re-runs `setup.sh`, re-sources `~/.bashrc` and, inside tmux, reloads `~/.tmux.conf`
+- `reload.sh`: re-runs `setup.sh`, reloads `~/.tmux.conf` inside tmux, then `exec`s a fresh bash (re-sourcing bashrc under an attached ble.sh garbles the command line)
 - `memwatch.sh`: polls RSS of a process tree at a configurable interval (useful for Slurm jobs)
 
 ## Key constraints
