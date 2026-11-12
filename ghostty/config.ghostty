@@ -1,3 +1,5 @@
+command = /opt/homebrew/bin/tmux new-session -A -s main
+
 # Matches the catppuccin mocha theme used by tmux, ble.sh and starship
 theme = Catppuccin Mocha
 
@@ -23,3 +25,4 @@ window-padding-balance = true
 # it slides away again when it loses focus
 keybind = global:alt+grave_accent=toggle_quick_terminal
 quick-terminal-position = top
+
