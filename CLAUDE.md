@@ -42,7 +42,7 @@ The main interactive shell config sourced from `~/.bashrc`. It:
 5. Sources all `bash/functions/*.sh` files
 
 ### .tmux.conf
-Template processed by `envsubst` at install time — uses `$shell_path` and `$dotfiles_dir` literals that get replaced. Prefix is `C-a`. Plugins (catppuccin, tmux-fzf) are loaded via `run` directives pointing into `tmux/vendor/`.
+Template processed by `envsubst` at install time — uses `$shell_path` and `$dotfiles_dir` literals that get replaced. Prefix is `C-s` locally and `C-a` over SSH (chosen via `$SSH_CONNECTION`) so nested sessions don't share a prefix; the status bar is also top/blue-host-pill locally and bottom/peach-host-pill remotely. Plugins (catppuccin, tmux-fzf) are loaded via `run` directives pointing into `tmux/vendor/`.
 
 ### vim
 Plugins managed as git submodules under `.vim/pack/` (vim8 native package loading — no plugin manager needed). Themes: gruvbox, catppuccin. Plugins: nerdcommenter, nerdtree, vim-airline, vim-oscyank.

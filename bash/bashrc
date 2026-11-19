@@ -8,6 +8,12 @@ case $- in
     *) return ;;
 esac
 
+# Over ssh outside tmux, set the terminal title to the short hostname so a local tmux names
+# the window after this host (a remote tmux does the same via set-titles)
+if [[ -n $SSH_CONNECTION && -z $TMUX ]]; then
+    printf '\e]2;%s\a' "${HOSTNAME%%.*}"
+fi
+
 set -o vi
 
 # Cut the default ~500ms wait after Esc (readline holds off in case more
