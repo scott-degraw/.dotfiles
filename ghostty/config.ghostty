@@ -1,4 +1,6 @@
-command = /opt/homebrew/bin/tmux new-session -A -s main
+# Through a login shell so the tmux server gets the homebrew PATH; launched directly it inherits
+# launchd's bare PATH, and plugin scripts (catppuccin, tmux-fzf) that shell out to `tmux` fail silently.
+command = /opt/homebrew/bin/bash -lc 'exec tmux new-session -A -s main'
 
 # Matches the catppuccin mocha theme used by tmux, ble.sh and starship
 theme = Catppuccin Mocha
