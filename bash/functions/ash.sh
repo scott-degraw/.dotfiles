@@ -5,6 +5,7 @@
 # RemoteCommand=none avoids clashing with hosts whose config already sets a RemoteCommand.
 unalias ash 2>/dev/null # an older alias in ~/.bashrc would otherwise break this definition
 function ash {
+  _ssh_title "$@"
   autossh -M 0 -t -o ServerAliveInterval=10 -o ServerAliveCountMax=3 -o RemoteCommand=none \
     "$@" tmux new-session -A -s main
 }
