@@ -85,7 +85,14 @@
       "context": "Transcript",
       "bindings": {
         "ctrl+e": "transcript:toggleShowAll",
-        "escape": "transcript:exit"
+        "escape": "transcript:exit",
+        "alt+g": "scroll:bottom"
+      }
+    },
+    {
+      "context": "Scroll",
+      "bindings": {
+        "alt+g": "scroll:bottom"
       }
     },
     {
